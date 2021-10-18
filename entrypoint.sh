@@ -95,6 +95,7 @@ function wait_for_workflow_to_finish {
     -H 'Accept: application/vnd.github.antiope-preview+json' \
     -H "Authorization: Bearer $INPUT_GITHUB_TOKEN" | jq '[.workflow_runs[]] | first')
   last_workflow_id=$(echo $last_workflow | jq '.id')
+  last_workflow_url="https://github.com/${INPUT_OWNER}/${INPUT_REPO}/actions/runs/${last_workflow_id}"
   echo "The workflow id is [$last_workflow_id]."
   echo "The workflow logs can be found at ${last_workflow_url}"
   echo "::set-output name=workflow_id::${last_workflow_id}"
